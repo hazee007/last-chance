@@ -7,18 +7,25 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { selectCurrentUser } from "../../store/user/selector";
+import { useSelector } from "react-redux";
 
 const Root = styled.div({
   margin: 14,
 });
 
 export default function Settings() {
+  const user = useSelector(selectCurrentUser);
   return (
     <Root>
       <Stack direction="column" spacing={2} sx={{ maxWidth: "50%", mb: 2 }}>
         <Typography variant="h5">Account Details</Typography>
-        <TextField label="Display Name" />
-        <TextField label="Last Name" />
+        <TextField
+          label="Display Name"
+          value={user?.displayName ?? user?.firstName}
+        />
+        <TextField label="Last Name" value={user?.lastName} />
+        <TextField label="Email" value={user?.email} />
       </Stack>
       <Divider />
       <Box sx={{ mb: 2, mt: 2 }}>

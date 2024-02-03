@@ -13,16 +13,15 @@ import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { emailSignInStart, googleSignInStart } from "../store/user/reducer";
+import { googleSignInStart, signUpStart } from "../store/user/reducer";
 import { selectCurrentUser } from "../store/user/selector";
-import { UserData } from "../firebase";
 
 const Root = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   width: "100%",
-  height: "60vh",
+  height: "80vh",
 });
 
 const TextLink = styled(Link)({
@@ -34,13 +33,16 @@ const TextLink = styled(Link)({
   },
 });
 
-export default function Login() {
-  const navigate = useNavigate();
+export default function Register() {
   const dispatch = useDispatch();
-  const user: UserData | null = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
+  const user = useSelector(selectCurrentUser);
   const [formState, setFormState] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,8 +54,12 @@ export default function Login() {
   };
 
   const submitForm = () => {
-    console.log(formState);
-    dispatch(emailSignInStart(formState));
+    if (formState.password !== formState.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    const { confirmPassword, ...newFormState } = formState;
+    dispatch(signUpStart(newFormState));
   };
 
   useEffect(() => {
@@ -73,13 +79,32 @@ export default function Login() {
         >
           <Box>
             <Typography variant={"body1"}>Last Chance Logo</Typography>
-            <Typography variant={"h5"}> Welcome to Last Chance</Typography>
+            <Typography variant={"h5"}> Register with Last Chance</Typography>
           </Box>
 
+          <TextField
+            id="firstName-outlined"
+            label="First Name"
+            variant="outlined"
+            required
+            name="firstName"
+            value={formState.firstName}
+            onChange={handleChange}
+          />
+          <TextField
+            id="lastName-outlined"
+            label="Last Name"
+            variant="outlined"
+            required
+            name="lastName"
+            value={formState.lastName}
+            onChange={handleChange}
+          />
           <TextField
             id="email-outlined"
             label="Email"
             variant="outlined"
+            required
             name="email"
             value={formState.email}
             onChange={handleChange}
@@ -88,18 +113,28 @@ export default function Login() {
             id="password-outlined"
             label="Password"
             variant="outlined"
-            name="password"
+            required
             type="password"
+            name="password"
             value={formState.password}
             onChange={handleChange}
           />
+          <TextField
+            id="confirm-password-outlined"
+            label=" Retype password"
+            variant="outlined"
+            required
+            type="password"
+            name="confirmPassword"
+            value={formState.confirmPassword}
+            onChange={handleChange}
+          />
 
-          <Stack direction={"column"}>
-            <TextLink onClick={() => navigate("/register")} variant={"body1"}>
-              Don't have an account?
+          <Box>
+            <TextLink onClick={() => navigate("/login")} variant={"body1"}>
+              Already have an account?
             </TextLink>
-            <TextLink variant={"body1"}>Forgot password?</TextLink>
-          </Stack>
+          </Box>
 
           <Box>
             <Button
@@ -109,7 +144,7 @@ export default function Login() {
               sx={{ width: "100%", mb: 1 }}
               onClick={submitForm}
             >
-              Login
+              Sign up
             </Button>
             <Divider />
           </Box>
@@ -119,7 +154,7 @@ export default function Login() {
             variant="contained"
             onClick={() => dispatch(googleSignInStart())}
           >
-            Login with Google
+            Sign up with Google
           </Button>
         </Stack>
       </Paper>

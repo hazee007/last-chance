@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Container } from "@mui/material";
+import Person from "./Person";
 
 export default function Header() {
   return (
@@ -32,9 +33,10 @@ export default function Header() {
           <Button href="/cart" variant="text" color="inherit">
             Cart
           </Button>
-          <Button href="/profile" variant="text" color="inherit">
+          {/* <Button href="/profile" variant="text" color="inherit">
             Profile
-          </Button>
+          </Button> */}
+          <Person />
         </Toolbar>
       </Container>
     </AppBar>

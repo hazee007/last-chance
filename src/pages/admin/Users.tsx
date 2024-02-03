@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 import { useMemo, useState } from "react";
-
 import {
   MaterialReactTable,
   useMaterialReactTable,
@@ -8,98 +7,44 @@ import {
 } from "material-react-table";
 import UserDialog from "../../components/admin/UserDialog";
 import { useNavigate } from "react-router-dom";
-
-type Person = {
-  name: {
-    firstName: string;
-    lastName: string;
-  };
-  address: string;
-  city: string;
-  state: string;
-};
-
-const data: Person[] = [
-  {
-    name: {
-      firstName: "John",
-      lastName: "Doe",
-    },
-    address: "261 Erdman Ford",
-    city: "East Daphne",
-    state: "Kentucky",
-  },
-  {
-    name: {
-      firstName: "Jane",
-      lastName: "Doe",
-    },
-    address: "769 Dominic Grove",
-    city: "Columbus",
-    state: "Ohio",
-  },
-  {
-    name: {
-      firstName: "Joe",
-      lastName: "Doe",
-    },
-    address: "566 Brakus Inlet",
-    city: "South Linda",
-    state: "West Virginia",
-  },
-  {
-    name: {
-      firstName: "Kevin",
-      lastName: "Vandy",
-    },
-    address: "722 Emie Stream",
-    city: "Lincoln",
-    state: "Nebraska",
-  },
-  {
-    name: {
-      firstName: "Joshua",
-      lastName: "Rolluffs",
-    },
-    address: "32188 Larkin Turnpike",
-    city: "Omaha",
-    state: "Nebraska",
-  },
-];
+import { useSelector } from "react-redux";
+import { selectAllUsers } from "../../store/user/selector";
+import { UserData } from "../../firebase";
 
 export default function Users() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const allUsers = useSelector(selectAllUsers);
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const columns = useMemo<MRT_ColumnDef<Person>[]>(
+  const columns = useMemo<MRT_ColumnDef<UserData>[]>(
     () => [
       {
-        accessorKey: "name.firstName", //access nested data with dot notation
+        accessorKey: "firstName",
         header: "First Name",
         size: 150,
       },
       {
-        accessorKey: "name.lastName",
+        accessorKey: "lastName",
         header: "Last Name",
         size: 150,
       },
       {
-        accessorKey: "address", //normal accessorKey
-        header: "Address",
+        accessorKey: "email",
+        header: "Emails",
         size: 200,
       },
       {
-        accessorKey: "city",
-        header: "City",
+        accessorKey: "createdAt",
+        header: "Added On",
         size: 150,
       },
       {
-        accessorKey: "state",
-        header: "State",
+        accessorKey: "role",
+        header: "Role",
         size: 150,
       },
     ],
@@ -108,12 +53,11 @@ export default function Users() {
 
   const table = useMaterialReactTable({
     columns,
-    data, //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
+    data: allUsers,
     muiTableBodyRowProps: ({ row }) => ({
       onClick: (event) => {
-        navigate(`/admin/users/${row.id}`);
+        navigate(`/admin/users/${row.original.id}`);
         // setOpen(true);
-        // console.info(event, row.id);
       },
       sx: {
         cursor: "pointer", //you might want to change the cursor too when adding an onClick

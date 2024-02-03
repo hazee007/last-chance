@@ -13,12 +13,18 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 import BackButton from "../../components/admin/BackButton";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/user/selector";
 
 const Root = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
 }));
 
 export default function UserDetails() {
+  const { uid = "" } = useParams();
+  const user = useSelector(selectUser(uid));
+
   return (
     <>
       <BackButton />
@@ -35,14 +41,14 @@ export default function UserDetails() {
           <TextField
             label="First Name"
             id="filled-hidden-label-normal"
-            defaultValue="Akinjide"
+            defaultValue={user?.firstName ?? user?.displayName}
             variant="filled"
             disabled
           />
           <TextField
             label="Last Name"
             id="filled-hidden-label-normal"
-            defaultValue="Jimoh"
+            defaultValue={user?.lastName ?? ""}
             variant="filled"
             disabled
           />

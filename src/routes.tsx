@@ -17,6 +17,7 @@ import Categories from "./pages/admin/Categories";
 import UserDetails from "./pages/admin/UserDetails";
 import ProductDetails from "./pages/admin/ProductDetails";
 import CategoryDetails from "./pages/admin/CategoryDetails";
+import Register from "./pages/Register";
 
 export default function Router() {
   return useRoutes([
@@ -29,6 +30,7 @@ export default function Router() {
         { path: "login", element: <Login /> },
         { path: "shop", element: <Products /> },
         { path: "cart", element: <Cart /> },
+        { path: "register", element: <Register /> },
         {
           path: "profile",
           element: <Profile />,

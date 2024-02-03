@@ -1,4 +1,3 @@
-import * as React from "react";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -21,6 +20,9 @@ import PeopleIcon from "@mui/icons-material/People";
 import CategoryIcon from "@mui/icons-material/Category";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { observeUsers } from "../../store/user/reducer";
 
 const navigation = [
   { text: "Dashboard", path: "/admin/dashboard", Icon: DashboardIcon },
@@ -103,7 +105,13 @@ const Drawer = styled(MuiDrawer, {
 export default function Dashboard() {
   const location = useLocation();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(observeUsers());
+  }, [dispatch]);
 
   const handleDrawerOpen = () => {
     setOpen(true);

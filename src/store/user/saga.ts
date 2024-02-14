@@ -5,12 +5,10 @@ import {
   signOutUser,
   getCurrentUser,
   signInWithGooglePopup,
-  AdditionalInformation,
   createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
   createAuthUserWithEmailAndPassword,
   db,
-  UserData,
 } from "../../firebase/index";
 import {
   signInSuccess,
@@ -27,6 +25,7 @@ import {
 } from "./reducer";
 import { eventChannel } from "redux-saga";
 import { collection, onSnapshot, query } from "firebase/firestore";
+import { AdditionalInformation, UserData } from "../../types";
 
 export function* getSnapshotFromUserAuth(
   userAuth: User,

@@ -12,7 +12,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
-import BackButton from "../../components/admin/BackButton";
+import ActionButtons from "../../components/admin/ActionButtons";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/user/selector";
@@ -27,7 +27,7 @@ export default function UserDetails() {
 
   return (
     <>
-      <BackButton />
+      <ActionButtons />
       <Root>
         <Typography variant="h4" component="h1">
           User Details

@@ -9,7 +9,7 @@ import UserDialog from "../../components/admin/UserDialog";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectAllUsers } from "../../store/user/selector";
-import { UserData } from "../../firebase";
+import { UserData } from "../../types";
 
 export default function Users() {
   const [open, setOpen] = useState(false);

@@ -27,6 +27,7 @@ import {
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
+import { AdditionalInformation, UserData } from "../types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAuQyUFy8AxXSMhf3cHadxqVmmYXIKFkHQ",
@@ -36,23 +37,6 @@ const firebaseConfig = {
   messagingSenderId: "233519044057",
   appId: "1:233519044057:web:15ae2835f7e45cd3c175c8",
   measurementId: "G-H5FQXJSBCB",
-};
-
-export type AdditionalInformation = {
-  displayName?: string;
-  firstName?: string;
-  lastName?: string;
-  role?: string;
-};
-
-export type UserData = {
-  id?: string;
-  createdAt: Timestamp;
-  displayName: string;
-  firstName?: string;
-  lastName?: string;
-  role?: string;
-  email: string;
 };
 
 const firebaseApp = initializeApp(firebaseConfig);

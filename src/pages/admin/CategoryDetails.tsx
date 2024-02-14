@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -7,12 +7,17 @@ import {
   MenuItem,
   Paper,
   Select,
+  SelectChangeEvent,
   Stack,
   TextField,
   styled,
 } from "@mui/material";
-import BackButton from "../../components/admin/BackButton";
+import ActionButtons from "../../components/admin/ActionButtons";
 import Subcategory from "../../components/admin/SubcategoryDialog";
+import { useParams } from "react-router-dom";
+import { selectCategory } from "../../store/categories/selectors";
+import { useSelector } from "react-redux";
+import { CategoryData } from "../../types";
 
 const Root = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -20,13 +25,44 @@ const Root = styled(Paper)(({ theme }) => ({
 
 export default function CategoryDetails() {
   const [open, setOpen] = useState(false);
+  const { uid = "" } = useParams();
+  const category = useSelector(selectCategory(uid));
+
+  const [categories, setCategories] = useState<CategoryData>({
+    name: "",
+    subcategories: [],
+  });
+
+  const onCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategories({ ...categories, name: event.target.value });
+  };
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setCategories({ ...categories, subcategories: [event.target.value] });
+  };
+
+  const addSubcategory = (value: string | null) => {
+    if (value) {
+      setCategories({
+        ...categories,
+        subcategories: [...categories.subcategories, value],
+      });
+    }
+  };
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (category) {
+      setCategories(category);
+    }
+  }, [category]);
+
   return (
     <>
-      <BackButton />
+      <ActionButtons path="category" data={categories} id={uid} />
       <Root>
         <Stack
           width={"40%"}
@@ -37,8 +73,10 @@ export default function CategoryDetails() {
           <TextField
             label="Name"
             id="filled-hidden-label-name"
-            defaultValue="category name"
             variant="filled"
+            onChange={onCategoryChange}
+            name="name"
+            value={categories?.name}
           />
 
           <FormControl fullWidth>
@@ -48,13 +86,15 @@ export default function CategoryDetails() {
             <Select
               labelId="select-label-subcategory"
               id="select-for-subcategory"
-              value={10}
+              value={categories?.subcategories[0] || ""}
               label="Sub Category"
-              // onChange={handleChange}
+              onChange={handleChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {categories?.subcategories.map((subcategory) => (
+                <MenuItem key={subcategory} value={subcategory}>
+                  {subcategory}
+                </MenuItem>
+              ))}
             </Select>
             <Box sx={{ width: 300, mt: 1 }}>
               <Button variant="contained" onClick={() => setOpen(true)}>
@@ -64,7 +104,11 @@ export default function CategoryDetails() {
           </FormControl>
         </Stack>
       </Root>
-      <Subcategory open={open} handleClose={handleClose} />
+      <Subcategory
+        addSubcategory={addSubcategory}
+        open={open}
+        handleClose={handleClose}
+      />
     </>
   );
 }

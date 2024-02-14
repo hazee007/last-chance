@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../store/user/selector";
 import { useNavigate } from "react-router-dom";
 import { signOutStart } from "../store/user/reducer";
-import { UserData } from "../firebase";
+import { UserData } from "../types";
 
 const options = (user: UserData | null) => {
   if (user) {

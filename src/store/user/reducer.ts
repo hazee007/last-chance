@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-import { UserData } from "../../firebase";
+import { UserData } from "../../types";
 
 export type UserState = {
   readonly currentUser: UserData | null;

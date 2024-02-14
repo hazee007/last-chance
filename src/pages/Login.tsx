@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { emailSignInStart, googleSignInStart } from "../store/user/reducer";
 import { selectCurrentUser } from "../store/user/selector";
-import { UserData } from "../firebase";
+import { UserData } from "../types";
 
 const Root = styled(Box)({
   display: "flex",

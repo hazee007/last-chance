@@ -8,46 +8,51 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import { useSelector } from "react-redux";
+import { selectCategories } from "../../store/categories/selectors";
+import { CategoryData } from "../../types";
 
-interface Category {
-  name: string;
-  subcategories: string[];
-}
+// interface Category {
+//   name: string;
+//   subcategories: string[];
+// }
 
-const data: Category[] = [
-  { name: "Electronics", subcategories: ["Mobile", "Laptop", "Television"] },
-  { name: "Fashion", subcategories: ["Men", "Women", "Kids"] },
-  {
-    name: "Home & Kitchen",
-    subcategories: ["Furniture", "Decor", "Kitchen Appliances"],
-  },
-  { name: "Books", subcategories: ["Fiction", "Non-fiction", "Educational"] },
-  {
-    name: "Automotive",
-    subcategories: ["Car Accessories", "Bike Accessories", "Car Electronics"],
-  },
-  {
-    name: "Sports & Fitness",
-    subcategories: ["Gym Equipment", "Outdoor Sports", "Indoor Games"],
-  },
-  { name: "Grocery", subcategories: ["Staples", "Snacks", "Beverages"] },
-  {
-    name: "Beauty & Health",
-    subcategories: ["Makeup", "Skincare", "Healthcare"],
-  },
-  {
-    name: "Toys & Games",
-    subcategories: ["Action Figures", "Board Games", "Dolls"],
-  },
-  {
-    name: "Pet Supplies",
-    subcategories: ["Dog Supplies", "Cat Supplies", "Bird Supplies"],
-  },
-];
+// const data: Category[] = [
+//   { name: "Electronics", subcategories: ["Mobile", "Laptop", "Television"] },
+//   { name: "Fashion", subcategories: ["Men", "Women", "Kids"] },
+//   {
+//     name: "Home & Kitchen",
+//     subcategories: ["Furniture", "Decor", "Kitchen Appliances"],
+//   },
+//   { name: "Books", subcategories: ["Fiction", "Non-fiction", "Educational"] },
+//   {
+//     name: "Automotive",
+//     subcategories: ["Car Accessories", "Bike Accessories", "Car Electronics"],
+//   },
+//   {
+//     name: "Sports & Fitness",
+//     subcategories: ["Gym Equipment", "Outdoor Sports", "Indoor Games"],
+//   },
+//   { name: "Grocery", subcategories: ["Staples", "Snacks", "Beverages"] },
+//   {
+//     name: "Beauty & Health",
+//     subcategories: ["Makeup", "Skincare", "Healthcare"],
+//   },
+//   {
+//     name: "Toys & Games",
+//     subcategories: ["Action Figures", "Board Games", "Dolls"],
+//   },
+//   {
+//     name: "Pet Supplies",
+//     subcategories: ["Dog Supplies", "Cat Supplies", "Bird Supplies"],
+//   },
+// ];
 
 export default function Categories() {
   const navigate = useNavigate();
-  const columns = useMemo<MRT_ColumnDef<Category>[]>(
+  const categories = useSelector(selectCategories);
+  console.log(categories);
+  const columns = useMemo<MRT_ColumnDef<CategoryData>[]>(
     () => [
       {
         accessorKey: "name",
@@ -72,9 +77,9 @@ export default function Categories() {
 
   const table = useMaterialReactTable({
     columns,
-    data,
+    data: categories,
     muiTableBodyRowProps: ({ row }) => ({
-      onClick: () => navigate(`/admin/categories/${row.id}`),
+      onClick: () => navigate(`/admin/categories/${row.original.id}`),
       sx: {
         cursor: "pointer",
       },

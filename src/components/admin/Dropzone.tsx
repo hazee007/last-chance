@@ -1,7 +1,10 @@
 import { Typography, styled } from "@mui/material";
-import { blue } from "@mui/material/colors";
-import { useEffect, useState } from "react";
+import { blue, red } from "@mui/material/colors";
+import { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { FileWithPreview, ItemWithFiles } from "../../types";
+import { deleteImage } from "../../api/items";
 
 const Container = styled("div")(({ theme }) => ({
   flex: 1,
@@ -43,32 +46,51 @@ const Image = styled("img")({
   height: "100%",
 });
 
-interface FileWithPreview extends File {
-  preview: string;
+interface DropZoneProps {
+  files: FileWithPreview[];
+  setItem: React.Dispatch<React.SetStateAction<ItemWithFiles>>;
 }
 
-export default function Dropzone() {
+export default function Dropzone({ files, setItem }: DropZoneProps) {
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/*": [],
     },
     onDrop: (acceptedFiles) => {
-      setFiles((prevFiles) => [
-        ...prevFiles,
-        ...acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        ),
-      ]);
+      setItem((prevItem) => ({
+        ...prevItem,
+        files: [
+          ...prevItem.files,
+          ...acceptedFiles.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          ),
+        ],
+      }));
     },
   });
 
-  const [files, setFiles] = useState<FileWithPreview[]>([]);
+  const handleRemoveImage = (src: string) => {
+    const imageFile = files.find((file) => file.preview === src);
+    if (!imageFile?.name) {
+      deleteImage(src);
+    }
+    const newFiles = files.filter((file) => file.preview !== src);
+    setItem((prevItem) => ({
+      ...prevItem,
+      imageUrls: prevItem.imageUrls.filter((url) => url !== src),
+      files: newFiles,
+    }));
+  };
 
   const thumbs = files.map((file) => (
     <Thumb key={file.name}>
       <ThumbInner>
+        <HighlightOffIcon
+          sx={{ position: "absolute", color: red[200], cursor: "pointer" }}
+          onClick={() => handleRemoveImage(file.preview)}
+        />
         <Image
           src={file.preview}
           alt={file.name}
@@ -82,7 +104,9 @@ export default function Dropzone() {
 
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+    return () => {
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
+    };
   }, [files]);
 
   return (

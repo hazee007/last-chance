@@ -6,13 +6,29 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
+import { useState } from "react";
 
 interface SubcategoryProps {
   open: boolean;
   handleClose: () => void;
+  addSubcategory: (value: string | null) => void;
 }
 
-export default function Subcategory({ open, handleClose }: SubcategoryProps) {
+export default function Subcategory({
+  open,
+  handleClose,
+  addSubcategory,
+}: SubcategoryProps) {
+  const [name, setName] = useState<string>("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  const handleClick = () => {
+    handleClose();
+    addSubcategory(name);
+  };
+
   return (
     <Dialog
       onClose={handleClose}
@@ -21,7 +37,9 @@ export default function Subcategory({ open, handleClose }: SubcategoryProps) {
       fullWidth
       maxWidth="sm"
     >
-      <DialogTitle id="add-subcategory-dialog-title">Disable User</DialogTitle>
+      <DialogTitle id="add-subcategory-dialog-title">
+        Add Subcategory
+      </DialogTitle>
       <IconButton
         aria-label="close"
         onClick={handleClose}
@@ -40,10 +58,12 @@ export default function Subcategory({ open, handleClose }: SubcategoryProps) {
           id="filled-hidden-label-name"
           defaultValue="Subcategory name"
           variant="filled"
+          onChange={handleChange}
+          value={name}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} variant="contained">
+        <Button onClick={handleClick} variant="contained">
           Save
         </Button>
       </DialogActions>

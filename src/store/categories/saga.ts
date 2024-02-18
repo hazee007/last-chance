@@ -1,14 +1,16 @@
 import { collection, onSnapshot } from "firebase/firestore";
 import { eventChannel } from "redux-saga";
-import { takeLatest, put, all, call, take } from "typed-redux-saga/macro";
+import { all, call, put, take,takeLatest } from "typed-redux-saga/macro";
+
+import { db } from "../../firebase";
+import { CategoryData, ItemData } from "../../types";
+
 import {
   fetchCategoriesStart,
   fetchCategoriesSuccess,
   fetchItemsStart,
   fetchItemsSuccess,
 } from "./reducer";
-import { CategoryData, ItemData } from "../../types";
-import { db } from "../../firebase";
 
 export type ItemsChannelData = {
   data: ItemData[];

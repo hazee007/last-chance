@@ -1,5 +1,4 @@
 import { Timestamp } from "firebase/firestore";
-import { StorageReference } from "firebase/storage";
 
 export type AdditionalInformation = {
   displayName?: string;

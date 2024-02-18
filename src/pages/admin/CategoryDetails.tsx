@@ -1,26 +1,32 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import {
   Box,
   Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
+  Chip,
   Paper,
-  Select,
-  SelectChangeEvent,
   Stack,
-  TextField,
   styled,
+  TextField,
+  Typography,
 } from "@mui/material";
+
 import ActionButtons from "../../components/admin/ActionButtons";
 import Subcategory from "../../components/admin/SubcategoryDialog";
-import { useParams } from "react-router-dom";
 import { selectCategory } from "../../store/categories/selectors";
-import { useSelector } from "react-redux";
 import { CategoryData } from "../../types";
 
 const Root = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
+}));
+
+const SubcategoryField = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(1),
+  borderRadius: theme.spacing(1),
+  borderColor: theme.palette.divider,
+  borderWidth: 2,
+  borderStyle: "solid",
 }));
 
 export default function CategoryDetails() {
@@ -37,8 +43,13 @@ export default function CategoryDetails() {
     setCategories({ ...categories, name: event.target.value });
   };
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setCategories({ ...categories, subcategories: [event.target.value] });
+  const handleDelete = (value: string) => {
+    setCategories({
+      ...categories,
+      subcategories: categories.subcategories.filter(
+        (subcategory) => subcategory !== value
+      ),
+    });
   };
 
   const addSubcategory = (value: string | null) => {
@@ -78,30 +89,27 @@ export default function CategoryDetails() {
             name="name"
             value={categories?.name}
           />
-
-          <FormControl fullWidth>
-            <InputLabel id="input-label-select-label-subcategory">
-              Sub Category
-            </InputLabel>
-            <Select
-              labelId="select-label-subcategory"
-              id="select-for-subcategory"
-              value={categories?.subcategories[0] || ""}
-              label="Sub Category"
-              onChange={handleChange}
-            >
-              {categories?.subcategories.map((subcategory) => (
-                <MenuItem key={subcategory} value={subcategory}>
-                  {subcategory}
-                </MenuItem>
-              ))}
-            </Select>
-            <Box sx={{ width: 300, mt: 1 }}>
-              <Button variant="contained" onClick={() => setOpen(true)}>
-                Add Subcategory
-              </Button>
+          {categories?.subcategories.length > 0 && (
+            <Box>
+              <Typography variant="body1">Subcategories</Typography>
+              <SubcategoryField elevation={2}>
+                <Stack direction="row" flexWrap={"wrap"} spacing={1} useFlexGap>
+                  {categories?.subcategories.map((value) => (
+                    <Chip
+                      key={value}
+                      label={value}
+                      onDelete={() => handleDelete(value)}
+                    />
+                  ))}
+                </Stack>
+              </SubcategoryField>
             </Box>
-          </FormControl>
+          )}
+          <Box sx={{ width: 300 }}>
+            <Button variant="contained" onClick={() => setOpen(true)}>
+              Add Subcategory
+            </Button>
+          </Box>
         </Stack>
       </Root>
       <Subcategory

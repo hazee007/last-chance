@@ -1,32 +1,34 @@
+import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
-import "@firebase/storage";
 import {
-  getAuth,
-  signInWithPopup,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
+  getAuth,
   GoogleAuthProvider,
-  signInWithRedirect,
-  onAuthStateChanged,
-  User,
   NextOrObserver,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signInWithRedirect,
+  signOut,
+  User,
 } from "firebase/auth";
 import {
-  getDoc,
-  setDoc,
-  doc,
-  getFirestore,
-  QueryDocumentSnapshot,
   collection,
-  DocumentData,
   CollectionReference,
+  doc,
+  DocumentData,
+  getDoc,
   getDocs,
+  getFirestore,
   query,
+  QueryDocumentSnapshot,
+  setDoc,
   Timestamp,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import { getAnalytics } from "firebase/analytics";
+
+import "@firebase/storage";
+
 import { AdditionalInformation, UserData } from "../types";
 
 const firebaseConfig = {

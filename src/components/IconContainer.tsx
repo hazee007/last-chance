@@ -1,5 +1,5 @@
-import { Paper, styled } from "@mui/material";
 import { ReactNode } from "react";
+import { Paper, styled } from "@mui/material";
 
 interface IconContainerProps {
   color: { [key: string]: string };

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { UserData } from "../../types";
 
 export type UserState = {

@@ -2,7 +2,9 @@ import { Paper, Stack, styled } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 
-import NavImage from "../assets/images/Group 8.png";
+import Store from "../assets/images/store.jpg";
+import FeatureCard from "../components/FeatureCard";
+import ImageAutomation from "../components/ImageAutomation";
 
 const categories = [
   { id: 1, name: "Beverages" },
@@ -14,9 +16,28 @@ const categories = [
   { id: 7, name: "Produce" },
   { id: 8, name: "Seafood" },
   { id: 9, name: "Seafood" },
-  { id: 10, name: "Seafood" },
-  { id: 11, name: "Seafood" },
-  { id: 12, name: "Others" },
+  { id: 10, name: "Others" },
+];
+
+const features = [
+  {
+    name: "Shop",
+    description:
+      "The store contains recycled product, and it is a good place to shop, and many more things to say about the store",
+    image: Store,
+  },
+  {
+    name: "Shop",
+    description:
+      "The store contains recycled product, and it is a good place to shop, and many more things to say about the store",
+    image: Store,
+  },
+  {
+    name: "Shop",
+    description:
+      "The store contains recycled product, and it is a good place to shop, and many more things to say about the store",
+    image: Store,
+  },
 ];
 
 const Box = styled(Paper)({
@@ -26,12 +47,6 @@ const Box = styled(Paper)({
 const ImageContainer = styled(Paper)({
   width: "80%",
   height: "80%",
-});
-
-const StyledImage = styled("img")({
-  width: "100%",
-  height: "100%",
-  objectFit: "cover",
 });
 
 export default function Home() {
@@ -47,9 +62,20 @@ export default function Home() {
             ))}
           </List>
         </Box>
-        <ImageContainer>
-          <StyledImage src={NavImage} alt="Navigation" />
+
+        <ImageContainer elevation={0}>
+          <ImageAutomation />
         </ImageContainer>
+      </Stack>
+
+      <Stack direction="row" justifyContent={"space-between"} sx={{ mt: 10 }}>
+        {features.map((feature) => (
+          <FeatureCard
+            name={feature.name}
+            description={feature.description}
+            image={feature.image}
+          />
+        ))}
       </Stack>
     </div>
   );

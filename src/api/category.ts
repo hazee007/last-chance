@@ -5,6 +5,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+
 import { db } from "../firebase";
 import { CategoryData } from "../types";
 
@@ -18,9 +19,9 @@ export async function addCategory(data: CategoryData) {
   }
 }
 
-export async function updateCategory(data: CategoryData) {
+export async function updateCategory(data: CategoryData, id: string) {
   try {
-    const itemDoc = doc(db, "categories");
+    const itemDoc = doc(db, "categories", id);
     await updateDoc(itemDoc, data);
   } catch (error) {
     console.error("Error adding document: ", error);

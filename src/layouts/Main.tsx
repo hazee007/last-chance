@@ -1,11 +1,12 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { green, lime } from "@mui/material/colors";
-import Box from "@mui/material/Box";
-
 import { Outlet } from "react-router-dom";
-import Header from "../components/Header";
-import { styled } from "@mui/system";
 import { Container } from "@mui/material";
+import Box from "@mui/material/Box";
+import { green, lime } from "@mui/material/colors";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/system";
+
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const theme = createTheme({
   palette: {
@@ -31,6 +32,7 @@ export default function MainLayout() {
         <Container maxWidth="lg">
           <Outlet />
         </Container>
+        <Footer />
       </Root>
     </ThemeProvider>
   );

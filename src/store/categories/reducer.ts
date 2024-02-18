@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { CategoryData, ItemData } from "../../types";
 
 export type CategoriesState = {

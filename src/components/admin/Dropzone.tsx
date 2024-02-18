@@ -1,10 +1,11 @@
-import { Typography, styled } from "@mui/material";
-import { blue, red } from "@mui/material/colors";
 import { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { FileWithPreview, ItemWithFiles } from "../../types";
+import { styled, Typography } from "@mui/material";
+import { blue, red } from "@mui/material/colors";
+
 import { deleteImage } from "../../api/items";
+import { FileWithPreview, ItemWithFiles } from "../../types";
 
 const Container = styled("div")(({ theme }) => ({
   flex: 1,
@@ -22,7 +23,7 @@ const Container = styled("div")(({ theme }) => ({
   transition: "border .24s ease-in-out",
 }));
 
-const Thumb = styled("div")(({ theme }) => ({
+const Thumb = styled("div")({
   display: "inline-flex",
   borderRadius: 2,
   border: "1px solid #eaeaea",
@@ -32,7 +33,7 @@ const Thumb = styled("div")(({ theme }) => ({
   height: 100,
   padding: 4,
   boxSizing: "border-box",
-}));
+});
 
 const ThumbInner = styled("div")({
   display: "flex",

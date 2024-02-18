@@ -1,8 +1,9 @@
-import { Stack, Typography } from "@mui/material";
-import IconContainer from "./IconContainer";
-import { green, lime } from "@mui/material/colors";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { Stack, Typography } from "@mui/material";
+import { green, lime } from "@mui/material/colors";
+
+import IconContainer from "./IconContainer";
 
 export default function CartActionButtons() {
   return (

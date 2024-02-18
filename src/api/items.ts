@@ -1,11 +1,12 @@
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import { db, storage } from "../firebase";
 import {
   deleteObject,
   getDownloadURL,
   ref,
   uploadBytes,
 } from "firebase/storage";
+
+import { db, storage } from "../firebase";
 import { FileWithPreview, ItemWithFiles } from "../types";
 
 async function uploadImage(files: FileWithPreview[]) {

@@ -1,20 +1,20 @@
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import {
   FormControlLabel,
   Paper,
   Stack,
+  styled,
   Switch,
   TextField,
   Typography,
-  styled,
 } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import AccordionSummary from "@mui/material/AccordionSummary";
 
 import ActionButtons from "../../components/admin/ActionButtons";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { selectUser } from "../../store/user/selector";
 
 const Root = styled(Paper)(({ theme }) => ({

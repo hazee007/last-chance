@@ -1,13 +1,12 @@
-import { Middleware } from "redux";
-
 import { configureStore } from "@reduxjs/toolkit";
-
+import { Middleware } from "redux";
+import logger from "redux-logger";
 import { PersistConfig, persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
-import rootSaga from "./root-saga";
+
 import { rootReducer } from "./root-reducer";
+import rootSaga from "./root-saga";
 
 export type RootState = ReturnType<typeof rootReducer>;
 

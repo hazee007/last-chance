@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import {
   Box,
@@ -7,8 +8,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 import { selectCurrentUser } from "../../store/user/selector";
-import { useSelector } from "react-redux";
 
 const Root = styled.div({
   margin: 14,

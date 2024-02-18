@@ -1,7 +1,8 @@
 import { Box, Stack } from "@mui/material";
+
 import Item from "../components/Item";
-import Section from "../components/Section";
 import Navigation from "../components/Navigation";
+import Section from "../components/Section";
 
 const products = [
   {

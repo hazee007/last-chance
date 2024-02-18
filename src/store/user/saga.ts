@@ -1,31 +1,33 @@
-import { takeLatest, put, all, call, take } from "typed-redux-saga/macro";
-import { DateTime } from "ts-luxon";
 import { User } from "firebase/auth";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { eventChannel } from "redux-saga";
+import { DateTime } from "ts-luxon";
+import { all, call, put, take,takeLatest } from "typed-redux-saga/macro";
+
 import {
-  signOutUser,
-  getCurrentUser,
-  signInWithGooglePopup,
-  createUserDocumentFromAuth,
-  signInAuthUserWithEmailAndPassword,
   createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
   db,
+  getCurrentUser,
+  signInAuthUserWithEmailAndPassword,
+  signInWithGooglePopup,
+  signOutUser,
 } from "../../firebase/index";
+import { AdditionalInformation, UserData } from "../../types";
+
 import {
-  signInSuccess,
-  signInFailed,
-  signOutSuccess,
-  googleSignInStart,
-  signOutFailed,
-  signUpFailed,
-  signUpStart,
-  signOutStart,
   emailSignInStart,
   fetchUsersSuccess,
+  googleSignInStart,
   observeUsers,
+  signInFailed,
+  signInSuccess,
+  signOutFailed,
+  signOutStart,
+  signOutSuccess,
+  signUpFailed,
+  signUpStart,
 } from "./reducer";
-import { eventChannel } from "redux-saga";
-import { collection, onSnapshot, query } from "firebase/firestore";
-import { AdditionalInformation, UserData } from "../../types";
 
 export function* getSnapshotFromUserAuth(
   userAuth: User,

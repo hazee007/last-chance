@@ -1,13 +1,13 @@
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Divider,
   IconButton,
   Paper,
   Stack,
-  Typography,
   styled,
+  Typography,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import macbook from "../assets/images/macbook.jpg";
 import CartActionButtons from "../components/CartActionButtons";

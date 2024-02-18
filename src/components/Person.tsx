@@ -1,12 +1,13 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser } from "../store/user/selector";
-import { useNavigate } from "react-router-dom";
+
 import { signOutStart } from "../store/user/reducer";
+import { selectCurrentUser } from "../store/user/selector";
 import { UserData } from "../types";
 
 const options = (user: UserData | null) => {

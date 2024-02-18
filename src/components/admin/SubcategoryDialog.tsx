@@ -1,12 +1,12 @@
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
+import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
-import { useState } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
 
 interface SubcategoryProps {
   open: boolean;
@@ -27,6 +27,7 @@ export default function Subcategory({
   const handleClick = () => {
     handleClose();
     addSubcategory(name);
+    setName("");
   };
 
   return (

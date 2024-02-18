@@ -29,7 +29,7 @@ export function handleUpdateClick({ path, data, navigate, id }: ClickProps) {
   switch (path) {
     case "category":
       if (data?.name === "") return;
-      updateCategory(data as CategoryData);
+      updateCategory(data as CategoryData, id as string);
       break;
     case "items":
       updateItem(data as ItemWithFiles, id as string);

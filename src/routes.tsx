@@ -1,22 +1,22 @@
 import { Navigate, useRoutes } from "react-router-dom";
 
-import Home from "./pages/Home";
+import AdminLayout from "./layouts/Admin";
 import MainLayout from "./layouts/Main";
+import Categories from "./pages/admin/Categories";
+import CategoryDetails from "./pages/admin/CategoryDetails";
+import Dashboard from "./pages/admin/Dashboard";
+import ProductDetails from "./pages/admin/ProductDetails";
+import AdminProducts from "./pages/admin/Products";
+import UserDetails from "./pages/admin/UserDetails";
+import Users from "./pages/admin/Users";
+import Cart from "./pages/Cart";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
-import Cart from "./pages/Cart";
 import Profile from "./pages/profile";
+import Items from "./pages/profile/Items";
 import Settings from "./pages/profile/Settings";
 import WishList from "./pages/profile/WishList";
-import Items from "./pages/profile/Items";
-import AdminLayout from "./layouts/Admin";
-import Dashboard from "./pages/admin/Dashboard";
-import AdminProducts from "./pages/admin/Products";
-import Users from "./pages/admin/Users";
-import Categories from "./pages/admin/Categories";
-import UserDetails from "./pages/admin/UserDetails";
-import ProductDetails from "./pages/admin/ProductDetails";
-import CategoryDetails from "./pages/admin/CategoryDetails";
 import Register from "./pages/Register";
 
 export default function Router() {

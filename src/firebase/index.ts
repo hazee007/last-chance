@@ -1,4 +1,3 @@
-import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
@@ -23,7 +22,6 @@ import {
   query,
   QueryDocumentSnapshot,
   setDoc,
-  Timestamp,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -42,7 +40,6 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(firebaseApp);
 export const storage = getStorage(firebaseApp);
 
 const googleProvider = new GoogleAuthProvider();

@@ -11,13 +11,15 @@ import UserDetails from "./pages/admin/UserDetails";
 import Users from "./pages/admin/Users";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
+import ItemDetail from "./pages/Item";
 import Login from "./pages/Login";
-import Products from "./pages/Products";
+import Product from "./pages/Product";
 import Profile from "./pages/profile";
 import Items from "./pages/profile/Items";
 import Settings from "./pages/profile/Settings";
 import WishList from "./pages/profile/WishList";
 import Register from "./pages/Register";
+import Products from "./pages/Shop";
 
 export default function Router() {
   return useRoutes([
@@ -44,6 +46,8 @@ export default function Router() {
             { path: "items", element: <Items /> },
           ],
         },
+        { path: "shop/:category", element: <Product /> },
+        { path: "shop/:category/:item", element: <ItemDetail /> },
       ],
     },
     {

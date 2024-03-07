@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Paper, Stack, styled,TextField, Typography } from "@mui/material";
+import { Paper, Stack, styled, TextField, Typography } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,7 +10,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import ActionButtons from "../../components/admin/ActionButtons";
 import Dropzone from "../../components/admin/Dropzone";
 import { selectCategories, selectItem } from "../../store/categories/selectors";
-import { FileWithPreview, ItemData, ItemWithFiles } from "../../types";
+import { FileWithPreview, ItemWithFiles } from "../../types";
 
 const initialItemState: ItemWithFiles = {
   name: "",
@@ -33,8 +33,6 @@ export default function ProductDetails() {
   const itemToEdit = useSelector(selectItem(uid));
   const [subcategories, setSubcategories] = useState<string[]>([]);
   const [item, setItem] = useState(initialItemState);
-
-  console.log(itemToEdit);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

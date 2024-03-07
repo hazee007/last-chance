@@ -1,3 +1,4 @@
+import { count } from "console";
 import { Timestamp } from "firebase/firestore";
 
 export type AdditionalInformation = {
@@ -15,6 +16,7 @@ export type UserData = {
   lastName?: string;
   role?: string;
   email: string;
+  favoriteItems: string[];
 };
 
 export type CategoryData = {
@@ -35,12 +37,10 @@ export type ItemData = {
   description?: string;
   createdAt?: Timestamp | Date;
   updatedAt?: Timestamp | Date;
-  // isAvailable: boolean;
-  // isFeatured: boolean;
-  // isOnSale: boolean;
-  // isRecommended: boolean;
-  // isPopular: boolean;
-  // isBestSeller: boolean;
+};
+
+export type CartItem = ItemData & {
+  count: number;
 };
 
 export interface FileWithPreview extends File {

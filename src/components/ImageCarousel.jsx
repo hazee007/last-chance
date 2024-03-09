@@ -2,6 +2,8 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import styled from "@emotion/styled";
 
+import useResponsive from "../hooks/useResponsive";
+
 import "react-multi-carousel/lib/styles.css";
 
 const responsive = {
@@ -23,7 +25,7 @@ const responsive = {
   },
   small: {
     breakpoint: { max: 800, min: 400 },
-    items: 2,
+    items: 1,
   },
   mobile: {
     breakpoint: { max: 400, min: 0 },
@@ -55,10 +57,11 @@ const CustomCarousel = styled(Carousel)({
 });
 
 export default function ImageCarousel({ children }) {
+  const smDown = useResponsive("down", "sm");
   return (
     <CustomCarousel
       responsive={responsive}
-      slidesToSlide={3}
+      slidesToSlide={smDown ? 1 : 3}
       swipeable={true}
       customRightArrow={<CustomRight />}
       customLeftArrow={<CustomLeft />}

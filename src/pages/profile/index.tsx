@@ -2,6 +2,10 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { Box, List, ListItemButton, ListItemText } from "@mui/material";
 
+import useResponsive from "../../hooks/useResponsive";
+
+import MobileView from "./MobileView";
+
 const DesktopSidebar = styled.div({
   height: "100vh",
   width: "200px",
@@ -30,6 +34,10 @@ const GridBox = styled.div({
 
 export default function Profile() {
   const location = useLocation();
+  const smDown = useResponsive("down", "sm");
+
+  if (smDown) return <MobileView />;
+
   return (
     <GridBox>
       <DesktopSidebar>

@@ -10,11 +10,16 @@ import {
 
 import macbook from "../assets/images/macbook.jpg";
 import CartActionButtons from "../components/CartActionButtons";
+import useResponsive from "../hooks/useResponsive";
 
-const ImageContainer = styled("div")({
+const ImageContainer = styled("div")(({ theme }) => ({
   width: "25%",
   height: "25%",
-});
+  [theme.breakpoints.down("md")]: {
+    width: "50%",
+    height: "50%",
+  },
+}));
 
 const StyledImage = styled("img")({
   width: "100%",
@@ -23,12 +28,13 @@ const StyledImage = styled("img")({
   borderRadius: "0.5rem",
 });
 export default function CartItem() {
+  const smDown = useResponsive("down", "sm");
   return (
-    <Box sx={{ mt: 3, width: "50%" }}>
+    <Box sx={{ mt: 1, width: smDown ? "100%" : "50%" }}>
       <Stack
         alignItems={"center"}
-        justifyContent={"space-between"}
         direction={"row"}
+        spacing={smDown ? 2 : 8}
         sx={{ mb: 1 }}
       >
         <ImageContainer>

@@ -4,6 +4,7 @@ import ImageCarousel from "../components/ImageCarousel";
 import ImageSelector from "../components/ImageSelector";
 import ProductItem from "../components/Item";
 import Navigation from "../components/Navigation";
+import useResponsive from "../hooks/useResponsive";
 
 const DetailCard = styled(Box)({
   height: "30%",
@@ -13,7 +14,7 @@ const GridBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  gap: 40,
+  gap: 30,
 });
 
 const products = [
@@ -55,6 +56,7 @@ const products = [
 ];
 
 export default function Item() {
+  const smDown = useResponsive("down", "sm");
   return (
     <Box>
       <Navigation />
@@ -62,7 +64,7 @@ export default function Item() {
         spacing={5}
         justifyContent={"space-between"}
         alignItems="start"
-        direction={"row"}
+        direction={smDown ? "column" : "row"}
         sx={{ mt: 5, mb: 10 }}
       >
         <ImageSelector />
@@ -72,7 +74,7 @@ export default function Item() {
           <Divider />
 
           <GridBox>
-            <Typography variant="h5" color="primary">
+            <Typography sx={{ mt: 1 }} variant="h5">
               $22
             </Typography>
 
@@ -86,7 +88,11 @@ export default function Item() {
 
             <Typography variant="h6">10 quantity available in stock</Typography>
 
-            <Button variant="contained" size="medium" sx={{ width: "30%" }}>
+            <Button
+              variant="contained"
+              size="medium"
+              sx={{ width: smDown ? "50%" : "30%" }}
+            >
               Add to cart
             </Button>
           </GridBox>

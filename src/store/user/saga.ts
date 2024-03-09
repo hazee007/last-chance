@@ -1,8 +1,7 @@
 import { User } from "firebase/auth";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { eventChannel } from "redux-saga";
-import { DateTime } from "ts-luxon";
-import { all, call, put, take,takeLatest } from "typed-redux-saga/macro";
+import { all, call, put, take, takeLatest } from "typed-redux-saga/macro";
 
 import {
   createAuthUserWithEmailAndPassword,
@@ -132,12 +131,12 @@ function* usersObserver() {
   while (true) {
     const { data } = yield* take(channel);
     const mapData = data.map((doc) => {
-      const date = DateTime.fromJSDate(doc.createdAt.toDate());
+      const date = doc.createdAt.toDate(); // TODO: fix this with luxon
       return {
         ...doc,
         firstName: doc.firstName ?? doc.displayName,
         role: doc.role ?? "user",
-        createdAt: date.toLocaleString(DateTime.DATETIME_MED),
+        createdAt: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
       };
     });
     yield* put(fetchUsersSuccess(mapData));

@@ -3,7 +3,9 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PlaceIcon from "@mui/icons-material/Place";
 import XIcon from "@mui/icons-material/X";
-import { Box, Button,Divider, Stack, styled, Typography } from "@mui/material";
+import { Box, Button, Divider, Stack, styled, Typography } from "@mui/material";
+
+import useResponsive from "../hooks/useResponsive";
 
 const Root = styled("footer")(({ theme }) => ({
   marginTop: theme.spacing(10),
@@ -11,17 +13,25 @@ const Root = styled("footer")(({ theme }) => ({
   padding: theme.spacing(3),
 }));
 
-const Container = styled("div")({
+const Container = styled("div")(({ theme }) => ({
   height: 250,
   width: 800,
   borderTop: "1px solid black",
-});
+  [theme.breakpoints.down("md")]: {
+    width: 400,
+    height: 200,
+  },
+}));
 
-const LinkContainer = styled("div")({
+const LinkContainer = styled("div")(({ theme }) => ({
   width: 800,
-});
+  [theme.breakpoints.down("md")]: {
+    width: 400,
+  },
+}));
 
 export default function Footer() {
+  const smDown = useResponsive("down", "sm");
   const date = new Date().getFullYear();
 
   return (
@@ -34,10 +44,10 @@ export default function Footer() {
         >
           <Container>
             <Stack
-              direction="row"
+              direction={smDown ? "column" : "row"}
               justifyContent={"space-between"}
               alignItems={"center"}
-              sx={{ height: "100%" }}
+              sx={{ height: "100%", mb: 1 }}
             >
               <h1>Last Chance Logo</h1>
 
@@ -79,9 +89,10 @@ export default function Footer() {
           </Container>
           <LinkContainer>
             <Stack
-              direction="row"
+              direction={smDown ? "column" : "row"}
               justifyContent={"space-between"}
               alignItems={"center"}
+              sx={{ mt: 1 }}
             >
               <Stack direction="row">
                 <Button href="/home" variant="text" color="inherit">

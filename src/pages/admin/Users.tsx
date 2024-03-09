@@ -56,7 +56,7 @@ export default function Users() {
     columns,
     data: allUsers,
     muiTableBodyRowProps: ({ row }) => ({
-      onClick: (event) => {
+      onClick: () => {
         navigate(`/admin/users/${row.original.id}`);
         // setOpen(true);
       },
